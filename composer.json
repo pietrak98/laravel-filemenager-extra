@@ -1,0 +1,16 @@
+{
+    "name": "pietrak98/laravel-filemenager-extra",
+    "description": "It's file manager system for laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "pietraknet",
+            "email": "kontakt@pietrak.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+      "php": ">=5.4.0"
+    }
+}
