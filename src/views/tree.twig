@@ -1,0 +1,16 @@
+<ul class="list-unstyled" style="padding-left: 50px">
+    {% for dir in tree %}
+        {% if dir.name != 'thumbs' %}
+            <li style="margin-left: -10px;">
+                <a href="?src={{ dir.src }}"
+                   class="button-clear folder-item" data-id="{{ dir.path }}">
+                    <span class="icon-folder-open folder" aria-hidden="true"></span>
+                    {{ dir.name }}
+                </a>
+                {% if dir.hasSub %}
+                    {% include "lfme::tree.twig" with { 'tree': dir.subDirectories } only %}
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

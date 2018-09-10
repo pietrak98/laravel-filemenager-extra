@@ -1,0 +1,96 @@
+<article class="crop-container-global">
+    <h2 class="fancybox-title">{{ trans('lfme::lfm.menu-crop') }}</h2>
+    <div class="crop-container">
+        <img src="{{ img.url }}?timestamp={{ img.time }}">
+    </div>
+    <nav class="crop-control-items">
+        <h3 class="visuallyhidden">{{ trans('lfme::lfm.nav-crop') }}</h3>
+        <div class="control-items-group">
+            <button class="zoom-in icon-zoom-in control-item" title="{{ trans('lfme::lfm.crop-zoom-out') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-zoom-out') }}</span>
+            </button>
+            <button class="zoom-out icon-zoom-out control-item" title="{{ trans('lfme::lfm.crop-zoom-in') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-zoom-in') }}</span>
+            </button>
+        </div>
+
+        <div class="control-items-group">
+            <button class="rotate-left icon-ccw control-item" title="{{ trans('lfme::lfm.crop-rotate-left') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-rotate-left') }}</span>
+            </button>
+            <button class="rotate-right icon-cw control-item" title="{{ trans('lfme::lfm.crop-rotate-right') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-rotate-right') }}</span>
+            </button>
+        </div>
+
+        <div class="control-items-group">
+            <button class="move-left icon-left-big control-item" title="{{ trans('lfme::lfm.crop-move-left') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-move-left') }}</span>
+            </button>
+            <button class="move-right icon-right-big control-item" title="{{ trans('lfme::lfm.crop-move-right') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-move-right') }}</span>
+            </button>
+            <button class="move-up icon-up-big control-item" title="{{ trans('lfme::lfm.crop-move-up') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-move-up') }}</span>
+            </button>
+            <button class="move-down icon-down-big control-item" title="{{ trans('lfme::lfm.crop-move-down') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-move-down') }}</span>
+            </button>
+        </div>
+
+        <div class="control-items-group">
+            <button class="flip-horizontal icon-resize-horizontal control-item" title="{{ trans('lfme::lfm.crop-flip-horizontal') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-flip-horizontal') }}</span>
+            </button>
+            <button class="flip-vertical icon-resize-vertical control-item" title="{{ trans('lfme::lfm.crop-flip-vertical') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-flip-vertical') }}</span>
+            </button>
+        </div>
+        <section class="control-items-group">
+            <h4 class="visuallyhidden">{{ trans('lfme::lfm.crop-ratio') }}</h4>
+            <button class="crop-ratio control-item" data-ratio="1.7777777777777777">
+                16:9
+            </button>
+            <button class="crop-ratio control-item" data-ratio="1.3333333333333333">
+                4:3
+            </button>
+            <button class="crop-ratio control-item" data-ratio="1">
+                1:1
+            </button>
+            <button class="crop-ratio control-item" data-ratio="0.6666666666666666">
+                2:3
+            </button>
+            <button class="crop-ratio control-item" data-ratio="NaN" title="{{ trans('lfme::lfm.crop-ratio-free') }}">
+                <span aria-hidden="true">✕</span><span class="visuallyhidden">{{ trans('lfme::lfm.crop-ratio-free') }}</span>
+            </button>
+        </section>
+        <div class="control-items-group">
+            <button class="crop-delete icon-crop control-item" title="{{ trans('lfme::lfm.crop-ratio-free') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-ratio-free') }}</span>
+            </button>
+            <button class="crop-center icon-move control-item" title="{{ trans('lfme::lfm.crop-center') }}">
+                <span class="visuallyhidden">{{ trans('lfme::lfm.crop-center') }}</span>
+            </button>
+        </div>
+
+        <dl class="form-DefinitionList">
+            <dt><label for="dataX">{{ trans('lfme::lfm.crop-dataX') }}</label></dt>
+            <dd><input readonly id="dataX"></dd>
+
+            <dt><label for="dataY">{{ trans('lfme::lfm.crop-dataY') }}</label></dt>
+            <dd><input readonly id="dataY"></dd>
+
+            <dt><label for="dataWidth">{{ trans('lfme::lfm.width') }}</label></dt>
+            <dd><input readonly id="dataWidth"></dd>
+
+            <dt><label for="dataHeight">{{ trans('lfme::lfm.height') }}</label></dt>
+            <dd><input readonly id="dataHeight"></dd>
+        </dl>
+        <button class="formConfirm-button formConfirm-cancel" id="cancel">
+            {{ trans('lfme::lfm.btn-cancel') }}
+        </button>
+        <button id="confirm" class="formConfirm-button formConfirm-confirm">
+            {{ trans('lfme::lfm.btn-crop') }}
+        </button>
+    </nav>
+</article>

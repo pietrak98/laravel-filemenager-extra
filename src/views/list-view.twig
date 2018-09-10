@@ -1,0 +1,104 @@
+{% if files|length > 0 or directories|length > 0 %}
+    <table class="table-striped">
+        <thead>
+        <tr>
+            <th style='width:50%;'>{{ trans('lfme::lfm.title-item') }}</th>
+            <th>{{ trans('lfme::lfm.title-size') }}</th>
+            <th>{{ trans('lfme::lfm.title-type') }}</th>
+            <th>{{ trans('lfme::lfm.title-modified') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dir in directories %}
+            <tr>
+                <td>
+                    <div class="control-items-group">
+                        <button class="icon-folder button-clear folder-item pointer control-item" data-id="{{ dir.path }}">
+                            {{ dir.name }}
+                        </button>
+                    </div>
+                    <div class="actions">
+                        <div class="control-items-group">
+                            <button class="icon-edit button-clear rename control-item" data-folder="{{ dir.name }}"
+                                    title="{{ trans('lfme::lfm.menu-rename') }}">
+                                <span class="visuallyhidden">{{ trans('lfme::lfm.menu-rename') }}</span>
+                            </button>
+                            <button class="icon-trash-empty button-clear delete control-item"
+                                    data-file="{{ dir.name }}"
+                                    title="{{ trans('lfme::lfm.menu-delete') }}">
+                                <span class="visuallyhidden">{{ trans('lfme::lfm.menu-delete') }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+                <td>{{ trans('lfme::lfm.type-folder') }}</td>
+            </tr>
+        {% endfor %}
+        {% for file in files %}
+            <tr>
+                <td>
+                    {% set file_name = file.name %}
+                    {% if 'image' in file.type|lower %}
+                        <div class="control-items-group">
+                            <button class="view icon-picture button-clear control-item"
+                                    data-file="{{ file_name }}?created={{ created }}"
+                                    title="{{ trans('lfme::lfm.title-view') }}">
+                                <span class="visuallyhidden">{{ trans('lfme::lfm.title-view') }}</span>
+                            </button>
+                            <button class="useFile button-clear control-item" data-url="{{ file.url }}"
+                                    title="{{ trans('lfme::lfm.menu-use') }}">
+                                {{ file_name }}
+                            </button>
+                        </div>
+
+                    {% else %}
+                        <div class="control-items-group">
+                            <button class="useFile button-clear {{ file.icon }} control-item" data-url="{{ file.url }}"
+                                    title="{{ trans('lfme::lfm.menu-use') }}">
+                                {{ file_name }}
+                            </button>
+                        </div>
+                    {% endif %}
+                    <div class="actions control-items-group">
+                        {% if 'image' in file.type|lower %}
+                            <button class="icon-crop button-clear cropImage control-item" data-file="{{ file_name }}"
+                                    title="{{ trans('lfme::lfm.btn-crop') }}">
+                                <span class="visuallyhidden">{{ trans('lfme::lfm.btn-crop') }}</span>
+                            </button>
+                            <button class="icon-move button-clear resizeImage control-item" data-file="{{ file_name }}"
+                                    title="{{ trans('lfme::lfm.btn-resize') }}">
+                                <span class="visuallyhidden">{{ trans('lfme::lfm.btn-resize') }}</span>
+                            </button>
+                        {% endif %}
+                        <button class="icon-edit button-clear rename control-item" data-file="{{ file_name }}"
+                                title="{{ trans('lfme::lfm.menu-rename') }}">
+                            <span class="visuallyhidden">{{ trans('lfme::lfm.menu-rename') }}</span>
+                        </button>
+                        <button class="icon-trash-empty button-clear delete control-item" data-file="{{ file_name }}"
+                                title="{{ trans('lfme::lfm.menu-delete') }}">
+                            <span class="visuallyhidden">{{ trans('lfme::lfm.menu-delete') }}</span>
+                        </button>
+                        <button class="icon-download button-clear download control-item" data-file="{{ file_name }}"
+                                title="{{ trans('lfme::lfm.menu-download') }}">
+                            <span class="visuallyhidden">{{ trans('lfme::lfm.menu-download') }}</span>
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    {{ file.size }}
+                </td>
+                <td>
+                    {{ file.type }}
+                </td>
+                <td>
+                    {{ file.created|localizeddate('long', 'short') }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    {{ html_alert('info', trans('lfme::lfm.message-empty'), {}, { htmlMarkup: 'div', 'headerLevel' : 2 }) }}
+{% endif %}

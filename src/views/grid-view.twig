@@ -1,0 +1,11 @@
+{% if files|length > 0 or directories|length > 0 %}
+    {% for dir in directories %}
+        {% include 'lfme::folders' %}
+    {% endfor %}
+    {% for file in files %}
+        {% include 'lfme::item' %}
+    {% endfor %}
+{% else %}
+    {{ html_alert('info', trans('lfme::lfm.message-empty'), {}, { htmlMarkup: 'div', 'headerLevel' : 2}) }}
+{% endif %}
+

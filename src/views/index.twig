@@ -1,0 +1,128 @@
+<!doctype html>
+
+<html lang="pl" class="lfm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ trans('lfme::lfme.title-page') }}</title>
+    <link href="{{ asset('build/admin/css/app.css') }}" rel="stylesheet">
+
+</head>
+<body>
+<header class="panel-heading">
+    <div class="logo">
+        <h1 class="panel-title">{{ trans('lfme::lfme.title-page') }}</h1>
+        <nav class="nav-header">
+            <h2 class="visuallyhidden">Nawigacja do stron</h2>
+            <ul>
+                <li>
+                    <a href="{{ route('home') }}" title="Wróć do strony">
+                        <span aria-hidden="true" class="icon-home"></span>
+                        <span class="visuallyhidden">Wróć do strony</span></a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.dashboard.index') }}" title="Wróć do strony">
+                        <span aria-hidden="true" class="icon-gauge"></span>
+                        <span class="visuallyhidden">Panel zarządzania</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <nav class="navbar">
+        <h2 class="visuallyhidden">{{ trans('lfme::lfme.header-nav') }}</h2>
+        <button type="button" class="icon-menu button-clear dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            <span class="visuallyhidden">{{ trans('lfme::lfme.btn-toggle') }}</span>
+        </button>
+        <ul class="nav dropdown-menu">
+            <li>
+                <a href="{{ route('lfme.show') }}" id="to-previous" class="button-clear icon-left-big">
+                    {{ trans('lfme::lfme.nav-back') }}
+                </a>
+            </li>
+            <li>
+                <button id="add-folder" class="button-clear icon-plus">
+                    {{ trans('lfme::lfme.nav-new') }}
+                </button>
+            </li>
+            <li class="separator">
+                <button id="upload" class="button-clear icon-upload">
+                    {{ trans('lfme::lfme.nav-upload') }}
+                </button>
+            </li>
+            {#<li>#}
+            @TODO
+                {#<a href="{{ route('lfme.setShowList') }}?show_list=0" id="thumbnail-display"#}
+                   {#class="icon-picture">#}
+                    {#{{ trans('lfme::lfme.nav-thumbnails') }}#}
+                {#</a>#}
+            {#</li>#}
+            {#<li>#}
+                {#<a href="{{ route('lfme.setShowList') }}?show_list=1" id="list-display" class="icon-list">#}
+                    {#{{ trans('lfme::lfme.nav-list') }}#}
+                {#</a>#}
+            {#</li>#}
+        </ul>
+    </nav>
+</header>
+<main class="panel-body">
+    <nav class="left-nav-container">
+        <button type="button" class="button-clear dropdown" aria-haspopup="true"
+                aria-expanded="false">
+            <span aria-hidden="true" class="nav-arrow"></span>
+            <span class="visuallyhidden">{{ trans('lfme::lfme.btn-toggle') }}</span>
+        </button>
+        <div class="left-nav">
+            <h2>{{ trans('lfme::lfme.header-sidebar') }}</h2>
+            <div id="tree1">
+                {% include "lfme::tree.twig" %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="content" id="right-nav">
+        {% if errors is not empty and errors.any %}
+            {{ html_alert('error', errors.all) }}
+        {% endif %}
+
+        <article class="contentZaw">
+            <h2>{{ trans('lfme::lfme.header-main') }}</h2>
+            <div id="content" class="contentShadow">
+                {% include "lfme::" ~ view ~ "-view.twig" %}
+
+            </div>
+        </article>
+    </div>
+</main>
+
+<div class="hidden" id="uploadModal">
+    <h2 class="fancybox-title">Wrzuć pliki</h2>
+
+    {{ form_open({'url': route('lfme.upload'), 'class': 'dropzone', 'files': true, 'id': 'uploadForm'}) }}
+    <div class="fallback">
+        <label for="upload">{{ trans('lfme::lfme.message-choose') }}</label>
+        <input name="upload[]" id="upload" type="file" multiple>
+    </div>
+
+    {{ form_close }}
+</div>
+<script src="{{ asset('build/admin/js/all.js') }}"></script>
+<script>
+    fileSystem().init({
+        ds: '/',
+        lang: {{ trans('lfme::lfm')|json_encode()|raw }},
+        home_dir: "/{{ (config_get('lfme.allow_multi_user')) ? auth_user().user_field : '' }}",
+        working_dir: '{{ working_dir|replace({'\\': '\\\\'}) }}',
+        shared_folder: "/{{ config_get('lfme.shared_folder_name') }}",
+        image_url: "{{ asset(config_get('lfme.images_url')) }}",
+        file_url: "{{ asset(config_get('lfme.files_url')) }}",
+        route: "{{ url(config('lfme.prefix')) }}",
+        show_list: '{{ app.request.cookies.get('show_list') }}',
+        {#dir: '{{ url(config_get('lfme.base_directory') ~ config_get('lfme.files_folder_name')) }}'#}
+    });
+    SetUrl = function () {
+        fancyDialog().alert('{{ trans('lfme::lfme.message-use') }}')
+    };
+</script>
+</body>
+</html>

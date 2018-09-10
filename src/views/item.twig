@@ -1,0 +1,55 @@
+{% set name = attribute(files, key).name %}
+{% set created = attribute(files, key).created|date('U') %}
+<article class="thumbnail">
+    <nav class="caption">
+        <h3>
+            <button type="button" class="button-clear useFile button-name" data-url="{{ file.url }}"
+                    title="{{ file.name }}">
+                {{ name|truncate(9) }}
+            </button>
+        </h3>
+        <button type="button" class="button-clear dropdown button-caret" aria-expanded="false">
+            <span aria-hidden="true">&#9660;</span>
+            <span class="visuallyhidden">{{ trans('lfme::lfm.btn-toggle') }}</span>
+        </button>
+        <ul role="menu">
+            {% if 'image' in attribute(files, key).type|lower %}
+                <li>
+                    <button data-file="{{ file.name }}?created={{ created }}"
+                            class="view button-clear icon-picture">{{ trans('lfme::lfm.menu-view') }}</button>
+                </li>
+                <li>
+                    <button data-file="{{ file.name }}"
+                            class="cropImage button-clear icon-crop">{{ trans('lfme::lfm.menu-crop') }}</button>
+                </li>
+                <li>
+                    <button data-file="{{ file.name }}"
+                            class="resizeImage button-clear icon-move">{{ trans('lfme::lfm.btn-resize') }}</button>
+                </li>
+            {% endif %}
+            <li>
+                <button data-file="{{ file.name }}"
+                        class="rename button-clear icon-edit">{{ trans('lfme::lfm.menu-rename') }}</button>
+            </li>
+            <li>
+                <button data-file="{{ file.name }}"
+                        class="delete button-clear icon-trash-empty">{{ trans('lfme::lfm.menu-delete') }}</button>
+            </li>
+            <li>
+                <button data-file="{{ file.name }}"
+                        class="download button-clear icon-download">{{ trans('lfme::lfm.menu-download') }}</button>
+            </li>
+        </ul>
+
+    </nav>
+    <button data-id="{{ file.name }}" class="button-clear view thumbnail-img" data-file="{{ file.name }}?created={{ created }}">
+        {% if 'image' in attribute(files, key).type|lower %}
+            <img src="{{ file.thumb }}" alt="Plik: {{ file.name }}"
+                 class="pointer">
+        {% else %}
+            <span class="{{ file.icon }}">
+                <span class="visuallyhidden">Plik: {{ file.name }}</span>
+            </span>
+        {% endif %}
+    </button>
+</article>

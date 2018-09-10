@@ -1,0 +1,29 @@
+<article class="thumbnail">
+    <nav class="caption">
+        <h3>
+            <button type="button" data-id="{{ dir.path }}" class="button-clear folder-item button-name"
+                    title="{{ dir.name }}">
+                {{ dir.name|truncate(10) }}
+            </button>
+        </h3>
+        <button type="button" class="button-clear dropdown button-caret" aria-expanded="false">
+            <span aria-hidden="true">&#9660;</span>
+            <span class="visuallyhidden">Rozwiń/zwiń menu</span>
+        </button>
+        <ul role="menu">
+            <li>
+                <button data-folder="{{ dir.name }}"
+                        class="rename button-clear icon-edit">
+                    {{ trans('lfme::lfm.menu-rename') }}</button>
+            </li>
+            <li>
+                <button data-file="{{ dir.name }}"
+                        class="delete button-clear icon-trash-empty">
+                    {{ trans('lfme::lfm.menu-delete') }}</button>
+            </li>
+        </ul>
+    </nav>
+    <button data-id="{{ dir.path }}" class="folder-icon button-clear folder-item thumbnail-img">
+        <img src="{{ asset('/images/folder.png') }}">
+    </button>
+</article>

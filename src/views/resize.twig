@@ -1,0 +1,22 @@
+<article class="resize-container-global">
+    <h2 class="fancybox-title">{{ trans('lfme::lfm.menu-resize') }}</h2>
+    <div class="resize-container">
+        <img id="resize" class="resize" src="{{ img.url }}" style="max-width: 100%" height="{{ height }}" width="{{ width }}">
+    </div>
+    <div class="resize-control-items">
+
+        <dl class="form-DefinitionList">
+            <dt><label for="dataWidth">{{ trans('lfme::lfm.width') }}</label></dt>
+            <dd><input readonly id="dataWidth" value="{{ width|round }}"></dd>
+
+            <dt><label for="dataHeight">{{ trans('lfme::lfm.height') }}</label></dt>
+            <dd><input readonly id="dataHeight" value="{{ height|round }}"></dd>
+        </dl>
+        <button class="formConfirm-button formConfirm-cancel" id="cancel">
+            {{ trans('lfme::lfm.btn-cancel') }}
+        </button>
+        <button id="confirm" class="formConfirm-button formConfirm-confirm">
+            {{ trans('lfme::lfm.btn-resize') }}
+        </button>
+    </div>
+</article>
